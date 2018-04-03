@@ -7,10 +7,11 @@ import pandas as pd
 import xlsxwriter
 
 class Folha_de_Ponto:
-    def __init__(self, login, password, debug=True):
+    def __init__(self, login, password, saveat, debug=True):
         self.login = login
         self.password = password
         self.debug = debug
+        self.saveat = saveat
         self.adp_login()
     
     def dprint(self, alert):
@@ -110,7 +111,7 @@ class Folha_de_Ponto:
 
         self.dprint("Writing file")
         df = pd.DataFrame(l)
-        writer = pd.ExcelWriter("folha-de-ponto.xlsx", engine="xlsxwriter")
+        writer = pd.ExcelWriter(self.saveat, engine="xlsxwriter")
         df.to_excel(writer, sheet_name="Ponto")
         workbook = writer.book
         worksheet = writer.sheets['Ponto']
