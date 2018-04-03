@@ -1,0 +1,6 @@
+__pycache__/
+classes/__pycache__/
+config/config.py
+ghostdriver.log
+resources/datatest.py
+resources/phantomjs.exe
