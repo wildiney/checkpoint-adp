@@ -83,28 +83,28 @@ class Folha_de_Ponto:
 
             if data is not None:
                 d = {}
-                d["0data"] = data
+                d["lbl01-data"] = data
             if entrada is not None:
                 if entrada != ".":
-                    d["3entrada"] = datetime.strptime(data+entrada[-5:], '%d/%m/%Y%H:%M')
+                    d["lbl02-entrada"] = datetime.strptime(data+entrada[-5:], '%d/%m/%Y%H:%M')
                 else:
-                    d["3entrada"] = datetime.strptime(data+str("00:00"), '%d/%m/%Y%H:%M')
+                    d["lbl02-entrada"] = datetime.strptime(data+str("00:00"), '%d/%m/%Y%H:%M')
 
             if almoco is not None:
                 if almoco != ".":
-                    d["4almoco"] = datetime.strptime(data+almoco[-5:], '%d/%m/%Y%H:%M')
+                    d["lbl03-almoco"] = datetime.strptime(data+almoco[-5:], '%d/%m/%Y%H:%M')
                 else:
-                    d["4almoco"] = datetime.strptime(data+str("00:00"), '%d/%m/%Y%H:%M')
+                    d["lbl03-almoco"] = datetime.strptime(data+str("00:00"), '%d/%m/%Y%H:%M')
             if retorno is not None:
                 if retorno != ".":
-                    d["5retorno"] = datetime.strptime(data+retorno[-5:], '%d/%m/%Y%H:%M')
+                    d["lbl04-retorno"] = datetime.strptime(data+retorno[-5:], '%d/%m/%Y%H:%M')
                 else:
-                    d["5retorno"] = datetime.strptime(data+str("00:00"), '%d/%m/%Y%H:%M')
+                    d["lbl04-retorno"] = datetime.strptime(data+str("00:00"), '%d/%m/%Y%H:%M')
             if saida is not None:
                 if saida != ".":
-                    d["6saida"] = datetime.strptime(data+saida[-5:], '%d/%m/%Y%H:%M')
+                    d["lbl05-saida"] = datetime.strptime(data+saida[-5:], '%d/%m/%Y%H:%M')
                 else:
-                    d["6saida"] = datetime.strptime(data+str("00:00"), '%d/%m/%Y%H:%M')
+                    d["lbl05-saida"] = datetime.strptime(data+str("00:00"), '%d/%m/%Y%H:%M')
             if data is not None:
                 l.append(d)
 
