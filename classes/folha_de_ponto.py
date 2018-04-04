@@ -19,9 +19,17 @@ class Folha_de_Ponto:
             print(alert)
 
     def adp_login(self):
+        service_args = [
+            '--proxy=http://proxylatam.indra.es:8080',
+            '--proxy-auth=wfpimentel:Indra0418',
+            '--proxy-type=http'
+        ]
         self.dprint("Accessing")
-        phantomjs_path = r"./resources/phantomjs.exe"
-        browser = webdriver.PhantomJS(phantomjs_path)
+        #phantomjs_path = r"./resources/phantomjs.exe"
+        #browser = webdriver.PhantomJS(phantomjs_path, service_args=service_args)
+        chrome_path = r"./resources/chromedriver.exe"
+        browser = webdriver.Chrome(chrome_path)
+        browser.set_window_position(-2000,0)
         browser.get('https://www.adpweb.com.br/expert/')
         browser.switch_to.frame('ADP')
         time.sleep(5)
@@ -54,6 +62,7 @@ class Folha_de_Ponto:
         source_code = folha.get_attribute("outerHTML")
 
         self.parse(source_code)
+        browser.quit()
 
 
     def parse(self,html):
@@ -85,29 +94,29 @@ class Folha_de_Ponto:
             if data is not None:
                 d = {}
                 d["lbl01-data"] = data
-            if entrada is not None:
-                if entrada != ".":
-                    d["lbl02-entrada"] = datetime.strptime(data+entrada[-5:], '%d/%m/%Y%H:%M')
-                else:
-                    d["lbl02-entrada"] = datetime.strptime(data+str("00:00"), '%d/%m/%Y%H:%M')
+                if entrada is not None:
+                    if entrada != ".":
+                        d["lbl02-entrada"] = datetime.strptime(data+entrada[-5:], '%d/%m/%Y%H:%M')
+                    else:
+                        d["lbl02-entrada"] = datetime.strptime(data+str("00:00"), '%d/%m/%Y%H:%M')
 
-            if almoco is not None:
-                if almoco != ".":
-                    d["lbl03-almoco"] = datetime.strptime(data+almoco[-5:], '%d/%m/%Y%H:%M')
-                else:
-                    d["lbl03-almoco"] = datetime.strptime(data+str("00:00"), '%d/%m/%Y%H:%M')
-            if retorno is not None:
-                if retorno != ".":
-                    d["lbl04-retorno"] = datetime.strptime(data+retorno[-5:], '%d/%m/%Y%H:%M')
-                else:
-                    d["lbl04-retorno"] = datetime.strptime(data+str("00:00"), '%d/%m/%Y%H:%M')
-            if saida is not None:
-                if saida != ".":
-                    d["lbl05-saida"] = datetime.strptime(data+saida[-5:], '%d/%m/%Y%H:%M')
-                else:
-                    d["lbl05-saida"] = datetime.strptime(data+str("00:00"), '%d/%m/%Y%H:%M')
-            if data is not None:
-                l.append(d)
+                if almoco is not None:
+                    if almoco != ".":
+                        d["lbl03-almoco"] = datetime.strptime(data+almoco[-5:], '%d/%m/%Y%H:%M')
+                    else:
+                        d["lbl03-almoco"] = datetime.strptime(data+str("00:00"), '%d/%m/%Y%H:%M')
+                if retorno is not None:
+                    if retorno != ".":
+                        d["lbl04-retorno"] = datetime.strptime(data+retorno[-5:], '%d/%m/%Y%H:%M')
+                    else:
+                        d["lbl04-retorno"] = datetime.strptime(data+str("00:00"), '%d/%m/%Y%H:%M')
+                if saida is not None:
+                    if saida != ".":
+                        d["lbl05-saida"] = datetime.strptime(data+saida[-5:], '%d/%m/%Y%H:%M')
+                    else:
+                        d["lbl05-saida"] = datetime.strptime(data+str("00:00"), '%d/%m/%Y%H:%M')
+                if data is not None:
+                    l.append(d)
 
         self.dprint("Writing file")
         df = pd.DataFrame(l)
