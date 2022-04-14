@@ -5,3 +5,5 @@ ghostdriver.log
 resources/datatest.py
 resources/phantomjs.exe
 resources/chromedriver.exe
+.vscode
+venv
