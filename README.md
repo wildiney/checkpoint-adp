@@ -1,7 +1,9 @@
 # FOLHA DE PONTO
+
 ## Download sign in sheet from ADP
 
 ### Simple Use
+
 Create a config.py file inside the folder config and fill with
 login = 'XXX'
 senha = 'xxxxxxxx'
